@@ -36,6 +36,42 @@ function App() {
             console.log(`Número mayor: ${mayor} / Posición: ${pos}`);  
             */
 
+    //  2) 
+
+            /*             
+            const sortArray = [...array].sort((a, b) => a - b);  // Ordenamos los números con .sort (el método sólo no funciona, así que agregamos a - b)
+
+            // Mostramos en consola el array ordenado ([1, 2, 6, 8, 10, 15])
+            console.log(sortArray); 
+            */
+
+    //  3)
+
+            /*             
+            // Usaremos el operador de módulo (%) o el resto de una división para determinar si es par o impar
+            // Al número del array lo dividimos por 2, si el número es par el resto da 0, y si es impar da 1
+
+            for (let i = 0; i < array.length; i++) {
+                if (array[i] % 2 === 0) { 
+                  console.log(`El número ${array[i]} es par y está en la posición ${i}`);
+                }
+              } 
+            */
+
+    //  4) 
+            
+            /*             
+            // Usamos la función "esPar" para verificar si el número es par (devuelve true si el número es par, y false si no es)
+            function esPar(num) {
+                return num % 2 === 0;
+            }
+            
+            // Creamos el nuevo arreglo "soloPares", con el método .filter, y la función "esPar"
+            let soloPares = array.filter(esPar);
+            
+            // Mostramos en consola los números pares ([10, 6, 8, 2])
+            console.log(soloPares); 
+            */
 
     return (
         <>

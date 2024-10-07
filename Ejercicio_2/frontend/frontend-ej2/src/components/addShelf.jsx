@@ -2,30 +2,38 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const AddShelf = () => {
-    const [name, setName] = useState('');
-    const [capacity, setCapacity] = useState('');
+    const [id, setId] = useState('');
+    const [location, setLocation] = useState('');
+    const [width, setWidth] = useState('');
+    const [height, setHeight] = useState('');
+    const [depth, setDepth] = useState('');
+    const [maxCapacity, setMaxCapacity] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validación de datos
-        if (!name || !capacity) {
-            alert('Por favor, completa todos los campos.');
-            return;
-        }
-
         const newShelf = {
-            name,
-            capacity: parseFloat(capacity)
+            id,
+            location,
+            width,
+            height,
+            depth,
+            maxCapacity,
         };
 
         try {
             // Petición POST para agregar una nueva estantería
             const response = await axios.post('http://localhost:4000/api/shelves/add', newShelf);
-            console.log('Estantería agregada:', response.data);
             alert('Estantería agregada con éxito');
-            setName('');  // Limpiar los campos después de enviar el formulario
-            setCapacity('');
+
+            // Limpiar los campos después de enviar el formulario
+            setId('');
+            setLocation('');
+            setWidth('');
+            setHeight('');
+            setDepth('');
+            setMaxCapacity('');
+
         } catch (error) {
             console.error('Error al agregar la estantería:', error);
             alert('Error al agregar la estantería');
@@ -34,23 +42,59 @@ const AddShelf = () => {
 
     return (
         <div>
-            <h2>Agregar nueva estantería</h2>
+            <h2>Agregar estantería</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Nombre de la estantería:</label>
+                    <label>ID:</label>
                     <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        type="number"
+                        value={id}
+                        onChange={(e) => setId(e.target.value)}
                         required
                     />
                 </div>
                 <div>
-                    <label>Capacidad:</label>
+                    <label>Ubicación:</label>
+                    <input
+                        type="string"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Ancho:</label>
                     <input
                         type="number"
-                        value={capacity}
-                        onChange={(e) => setCapacity(e.target.value)}
+                        value={width}
+                        onChange={(e) => setWidth(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Altura:</label>
+                    <input
+                        type="number"
+                        value={height}
+                        onChange={(e) => setHeight(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Profundidad:</label>
+                    <input
+                        type="number"
+                        value={depth}
+                        onChange={(e) => setDepth(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Capacidad máxima:</label>
+                    <input
+                        type="number"
+                        value={maxCapacity}
+                        onChange={(e) => setMaxCapacity(e.target.value)}
                         required
                     />
                 </div>

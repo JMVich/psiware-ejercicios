@@ -7,7 +7,6 @@ require('dotenv').config();  // Cargamos las variables de entorno desde .env
 
 const app = express();  
 
-// Middlewares
 app.use(express.json());  // Para que Express acepte formato JSON
 app.use(cors());  // Permitimos CORS en todas las rutas
 

@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-      <p>frontend</p>
+      <p>Biblioteca</p>
       <AddBook/>
       <AddShelf/>
     </>

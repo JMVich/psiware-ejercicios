@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const AddBook = () => {
@@ -7,13 +7,31 @@ const AddBook = () => {
     const [author, setAuthor] = useState('');
     const [genre, setGenre] = useState('');
     const [price, setPrice] = useState('');
+    const [shelfId, setShelfId] = useState('');
+    const [shelves, setShelves] = useState([]);
 
+    // Obtener las estanterías
+    useEffect(() => {
+        axios.get('http://localhost:4000/api/shelves')
+            .then(response => setShelves(response.data))
+            .catch(error => console.error('Error al obtener estanterías:', error));
+    }, []);
+
+    // Agregar el libro a la BD
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newBook = { ISBN, name, author, genre, price };
+        const newBook = { ISBN, name, author, genre, price, shelfId };
         try {
             await axios.post('http://localhost:4000/api/books/add', newBook);
             alert('Libro agregado con éxito');
+
+            // Limpiar los campos después de enviar el formulario
+            setISBN('');
+            setName('');
+            setAuthor('');
+            setGenre('');
+            setPrice('');
+
         } catch (error) {
             console.error('Error al agregar el libro', error);
         }
@@ -28,6 +46,16 @@ const AddBook = () => {
                 <input type="text" placeholder="Autor" value={author} onChange={(e) => setAuthor(e.target.value)} />
                 <input type="text" placeholder="Género" value={genre} onChange={(e) => setGenre(e.target.value)} />
                 <input type="number" placeholder="Precio" value={price} onChange={(e) => setPrice(e.target.value)} />
+
+                <select value={shelfId} onChange={(e) => setShelfId(e.target.value)} required>
+                    <option value="">Seleccioná una estantería</option>
+                    {shelves.map(shelf => (
+                        <option key={shelf._id} value={shelf._id}>
+                            {shelf.location}
+                        </option>
+                    ))}
+                </select>
+
                 <button type="submit">Agregar libro</button>
             </form>
         </>
@@ -35,3 +63,4 @@ const AddBook = () => {
 };
 
 export default AddBook;
+

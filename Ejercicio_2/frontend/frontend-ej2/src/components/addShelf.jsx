@@ -22,7 +22,7 @@ const AddShelf = () => {
         };
 
         try {
-            // Petición POST para agregar una nueva estantería
+            // Agregar estantería
             const response = await axios.post('http://localhost:4000/api/shelves/add', newShelf);
             alert('Estantería agregada con éxito');
 

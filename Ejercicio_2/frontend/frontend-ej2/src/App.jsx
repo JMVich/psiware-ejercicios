@@ -1,4 +1,5 @@
-
+import AddBook from './components/addBook'
+import AddShelf from './components/addShelf'
 import './App.css'
 
 function App() {
@@ -6,6 +7,8 @@ function App() {
   return (
     <>
       <p>frontend</p>
+      <AddBook/>
+      <AddShelf/>
     </>
   )
 }

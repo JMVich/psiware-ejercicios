@@ -41,7 +41,7 @@ const ShelfSelector = () => {
   return (
     <>
       <div>
-        <h2>Selecciona una Estantería</h2>
+        <h2>SELECCIONÁ UNA ESTANTERÍA</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <select onChange={(e) => handleShelfSelect(e.target.value)} value={selectedShelf || ''}>
           <option value="" disabled>Selecciona una estantería</option>

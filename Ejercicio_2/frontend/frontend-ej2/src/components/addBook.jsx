@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../styles/BookShelf.css'
 
 const AddBook = () => {
     const [ISBN, setISBN] = useState('');
@@ -39,25 +40,27 @@ const AddBook = () => {
 
     return (
         <>
-            <h2>Agregar libro</h2>
-            <form onSubmit={handleSubmit}>
-                <input type="number" placeholder="ISBN" value={ISBN} onChange={(e) => setISBN(e.target.value)} />
-                <input type="text" placeholder="Nombre" value={name} onChange={(e) => setName(e.target.value)} />
-                <input type="text" placeholder="Autor" value={author} onChange={(e) => setAuthor(e.target.value)} />
-                <input type="text" placeholder="Género" value={genre} onChange={(e) => setGenre(e.target.value)} />
-                <input type="number" placeholder="Precio" value={price} onChange={(e) => setPrice(e.target.value)} />
+            <div className='mainDiv'>
+                <h2>AGREGAR LIBRO</h2>
+                <form onSubmit={handleSubmit}>
+                    <input type="number" placeholder="ISBN" value={ISBN} onChange={(e) => setISBN(e.target.value)} />
+                    <input type="text" placeholder="Nombre" value={name} onChange={(e) => setName(e.target.value)} />
+                    <input type="text" placeholder="Autor" value={author} onChange={(e) => setAuthor(e.target.value)} />
+                    <input type="text" placeholder="Género" value={genre} onChange={(e) => setGenre(e.target.value)} />
+                    <input type="number" placeholder="Precio" value={price} onChange={(e) => setPrice(e.target.value)} />
 
-                <select value={shelfId} onChange={(e) => setShelfId(e.target.value)} required>
-                    <option value="">Seleccioná una estantería</option>
-                    {shelves.map(shelf => (
-                        <option key={shelf._id} value={shelf._id}>
-                            {shelf.location}
-                        </option>
-                    ))}
-                </select>
+                    <select value={shelfId} onChange={(e) => setShelfId(e.target.value)} required>
+                        <option value="">Seleccioná una estantería</option>
+                        {shelves.map(shelf => (
+                            <option key={shelf._id} value={shelf._id}>
+                                {shelf.location}
+                            </option>
+                        ))}
+                    </select>
 
-                <button type="submit">Agregar libro</button>
-            </form>
+                    <button type="submit">Agregar libro</button>
+                </form>
+            </div>
         </>
     );
 };

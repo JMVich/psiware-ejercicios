@@ -8,14 +8,16 @@ function App() {
 
   return (
     <>
-      <p>Biblioteca</p>
-      <AddBook/>
-      <AddShelf/>
+      <h1>Sistema para bibliotecas - Psiware</h1>
+      <AddBook />
+      <AddShelf />
 
-      <ShelfData/>
+      <div className='divInfo'>
+        <ShelfData />
 
-      <BooksByShelf/>
-      
+        <BooksByShelf />
+      </div>
+
     </>
   )
 }

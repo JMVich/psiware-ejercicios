@@ -1,5 +1,6 @@
 import AddBook from './components/addBook'
 import AddShelf from './components/addShelf'
+import ShelfPercentaje from './components/ShelfPercentage'
 import './App.css'
 
 function App() {
@@ -9,6 +10,9 @@ function App() {
       <p>Biblioteca</p>
       <AddBook/>
       <AddShelf/>
+
+      <ShelfPercentaje/>
+      
     </>
   )
 }

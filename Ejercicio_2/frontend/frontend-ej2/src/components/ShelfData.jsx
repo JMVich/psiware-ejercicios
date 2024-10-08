@@ -39,27 +39,29 @@ const ShelfSelector = () => {
   };
 
   return (
-    <div>
-      <h2>Selecciona una Estantería</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <select onChange={(e) => handleShelfSelect(e.target.value)} value={selectedShelf || ''}>
-        <option value="" disabled>Selecciona una estantería</option>
-        {shelves.map((shelf) => (
-          <option key={shelf._id} value={shelf._id}>
-            {shelf.location}
-          </option>
-        ))}
-      </select>
+    <>
+      <div>
+        <h2>Selecciona una Estantería</h2>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <select onChange={(e) => handleShelfSelect(e.target.value)} value={selectedShelf || ''}>
+          <option value="" disabled>Selecciona una estantería</option>
+          {shelves.map((shelf) => (
+            <option key={shelf._id} value={shelf._id}>
+              {shelf.location}
+            </option>
+          ))}
+        </select>
 
-      {loading && <p>Cargando datos de llenado...</p>}
+        {loading && <p>Cargando datos de llenado...</p>}
 
-      {fillData && (
+        {fillData && (
         <div>
           <p>Ubicación: {fillData.location}</p>
           <p>Cantidad de libros: {fillData.bookCount}</p>
           <p>Valor total de los libros: ${fillData.totalValue}</p>
           <p>Capacidad máxima: {fillData.maxCapacity}</p>
           <p>Porcentaje de llenado: {fillData.fillPercentage}</p>
+
           {fillData.mostExpensiveBook && (
             <div>
               <h3>Libro más caro:</h3>
@@ -69,8 +71,11 @@ const ShelfSelector = () => {
             </div>
           )}
         </div>
-      )}
-    </div>
+        )}
+        
+      </div>
+    </>
+
   );
 };
 

@@ -73,3 +73,25 @@ exports.getShelfFillPercentage = async (req, res) => {
         res.status(500).json({ message: 'Error al calcular el porcentaje de llenado, el valor total y el libro más caro', error });
     }
 };
+
+exports.getBooksSorted = async (req, res) => {
+    try {
+        const shelfId = req.params.id;
+
+        // Verificamos si el ID es un ObjectId válido
+        if (!mongoose.Types.ObjectId.isValid(shelfId)) {
+            return res.status(400).json({ message: 'ID de estantería no válido' });
+        }
+
+        // Buscamos los libros de la estantería y los ordenamos por título
+        const books = await Book.find({ shelfId }).sort({ title: 1 });  // Ordenamos alfabéticamente por el campo 'title'
+
+        if (books.length === 0) {
+            return res.status(404).json({ message: 'No hay libros en esta estantería' });
+        }
+
+        res.status(200).json({ books });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener los libros ordenados', error });
+    }
+};

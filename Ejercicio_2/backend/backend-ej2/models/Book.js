@@ -6,7 +6,7 @@ const bookSchema = new mongoose.Schema({
     author: { type: String, required: true },
     genre: { type: String, required: true },
     price: { type: Number, required: true },
-    shelfId: { type: mongoose.Schema.Types.ObjectId, ref: 'Shelf', required: true },  // Unimos los libros con las estanterías
+    shelfId: { type: mongoose.Schema.Types.ObjectId, ref: 'Shelf', required: true },
 });
 
 module.exports = mongoose.model('Book', bookSchema);

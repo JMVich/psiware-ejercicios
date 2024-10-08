@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../styles/BookShelf.css'
 
 const AddShelf = () => {
     const [id, setId] = useState('');
@@ -41,63 +42,58 @@ const AddShelf = () => {
     };
 
     return (
-        <div>
-            <h2>Agregar estantería</h2>
+        <div className='mainDiv'>
+            <h2>AGREGAR ESTANTERÍA</h2>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>ID:</label>
-                    <input
-                        type="number"
-                        value={id}
-                        onChange={(e) => setId(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Ubicación:</label>
-                    <input
-                        type="string"
-                        value={location}
-                        onChange={(e) => setLocation(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Ancho:</label>
-                    <input
-                        type="number"
-                        value={width}
-                        onChange={(e) => setWidth(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Altura:</label>
-                    <input
-                        type="number"
-                        value={height}
-                        onChange={(e) => setHeight(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Profundidad:</label>
-                    <input
-                        type="number"
-                        value={depth}
-                        onChange={(e) => setDepth(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Capacidad máxima:</label>
-                    <input
-                        type="number"
-                        value={maxCapacity}
-                        onChange={(e) => setMaxCapacity(e.target.value)}
-                        required
-                    />
-                </div>
+
+                <input
+                    type="number"
+                    value={id}
+                    onChange={(e) => setId(e.target.value)}
+                    placeholder="ID"
+                    required
+                />
+
+                <input
+                    type="string"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    placeholder="Ubicación"
+                    required
+                />
+
+                <input
+                    type="number"
+                    value={width}
+                    onChange={(e) => setWidth(e.target.value)}
+                    placeholder='Ancho'
+                    required
+                />
+
+                <input
+                    type="number"
+                    value={height}
+                    onChange={(e) => setHeight(e.target.value)}
+                    placeholder='Altura'
+                    required
+                />
+
+                <input
+                    type="number"
+                    value={depth}
+                    onChange={(e) => setDepth(e.target.value)}
+                    placeholder='Profundidad'
+                    required
+                />
+
+                <input
+                    type="number"
+                    value={maxCapacity}
+                    onChange={(e) => setMaxCapacity(e.target.value)}
+                    placeholder='Capacidad máxima'
+                    required
+                />
+
                 <button type="submit">Agregar estantería</button>
             </form>
         </div>

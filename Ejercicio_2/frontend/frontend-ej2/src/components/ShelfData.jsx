@@ -7,6 +7,7 @@ const ShelfSelector = () => {
   const [fillData, setFillData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [sortedBooks, setSortedBooks] = useState([]);
 
   // Cargar las estanterías desde el backend
   useEffect(() => {
@@ -27,12 +28,18 @@ const ShelfSelector = () => {
     setSelectedShelf(shelfId);
     setLoading(true);
     setFillData(null);  // Reseteamos los datos de llenado previos
+    setSortedBooks([]);  // Reseteamos la lista de libros
 
     try {
-      const response = await axios.get(`http://localhost:4000/api/shelves/${shelfId}/fill-percentage`);
-      setFillData(response.data);  // Guardamos los datos de llenado
+      // Obtener los datos de llenado de la estantería
+      const fillResponse = await axios.get(`http://localhost:4000/api/shelves/${shelfId}/fill-percentage`);
+      setFillData(fillResponse.data);  // Guardamos los datos de llenado
+
+      // Obtener los libros ordenados alfabéticamente
+      const booksResponse = await axios.get(`http://localhost:4000/api/shelves/${shelfId}/books-sorted`);
+      setSortedBooks(booksResponse.data.books);  // Guardamos los libros en sortedBooks
     } catch (error) {
-      setError('Error al obtener el porcentaje de llenado');
+      setError('Error al obtener los datos de la estantería o libros');
     }
 
     setLoading(false);
@@ -55,24 +62,37 @@ const ShelfSelector = () => {
         {loading && <p>Cargando datos de llenado...</p>}
 
         {fillData && (
-        <div>
-          <p>Ubicación: {fillData.location}</p>
-          <p>Cantidad de libros: {fillData.bookCount}</p>
-          <p>Valor total de los libros: ${fillData.totalValue}</p>
-          <p>Capacidad máxima: {fillData.maxCapacity}</p>
-          <p>Porcentaje de llenado: {fillData.fillPercentage}</p>
+          <div>
+            <p>Ubicación: {fillData.location}</p>
+            <p>Cantidad de libros: {fillData.bookCount}</p>
+            <p>Valor total de los libros: ${fillData.totalValue}</p>
+            <p>Capacidad máxima: {fillData.maxCapacity}</p>
+            <p>Porcentaje de llenado: {fillData.fillPercentage}</p>
 
-          {fillData.mostExpensiveBook && (
-            <div>
-              <h3>Libro más caro:</h3>
-              <p>Nombre: {fillData.mostExpensiveBook.name}</p>
-              <p>Autor: {fillData.mostExpensiveBook.author}</p>
-              <p>Precio: ${fillData.mostExpensiveBook.price}</p>
-            </div>
+            {fillData.mostExpensiveBook && (
+              <div>
+                <h3>Libro más caro:</h3>
+                <p>Nombre: {fillData.mostExpensiveBook.name}</p>
+                <p>Autor: {fillData.mostExpensiveBook.author}</p>
+                <p>Precio: ${fillData.mostExpensiveBook.price}</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        <div>
+          <h3>Libros ordenados alfabéticamente:</h3>
+          {sortedBooks.length > 0 ? (
+            <ul>
+              {sortedBooks.map((book) => (
+                <li key={book._id}>{book.name} - {book.author}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No hay libros para mostrar.</p>
           )}
         </div>
-        )}
-        
+
       </div>
     </>
 

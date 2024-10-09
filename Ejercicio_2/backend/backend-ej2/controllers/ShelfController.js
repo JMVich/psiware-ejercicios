@@ -67,7 +67,7 @@ exports.getShelfFillPercentage = async (req, res) => {
                 name: mostExpensiveBook.name,
                 author: mostExpensiveBook.author,
                 price: mostExpensiveBook.price.toFixed(2)
-            } : null // Si no hay libros, devolvemos null para el libro más caro
+            } : null 
         });
     } catch (error) {
         res.status(500).json({ message: 'Error al calcular el porcentaje de llenado, el valor total y el libro más caro', error });
@@ -84,7 +84,7 @@ exports.getBooksSorted = async (req, res) => {
         }
 
         // Buscamos los libros de la estantería y los ordenamos por título
-        const books = await Book.find({ shelfId }).sort({ title: 1 });  // Ordenamos alfabéticamente por el campo 'title'
+        const books = await Book.find({ shelfId }).sort({ name: 1 });  // Ordenamos alfabéticamente por el campo 'name'
 
         if (books.length === 0) {
             return res.status(404).json({ message: 'No hay libros en esta estantería' });

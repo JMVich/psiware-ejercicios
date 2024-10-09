@@ -1,5 +1,6 @@
 h2 {
     color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .mainDiv {
@@ -33,6 +34,7 @@ form button {
 
 h3 {
     margin-top: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .divButton {
@@ -60,4 +62,11 @@ ul {
     margin-left: .5em;
     padding: .4em;
     border-radius: .5em;
+}
+
+.pErrorSeleccionShelf {
+    color: #ffffff;
+    padding: .2em;
+    background: #ff0000;
+    border-radius: 1em;
 }

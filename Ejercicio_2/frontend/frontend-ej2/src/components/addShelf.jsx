@@ -93,8 +93,9 @@ const AddShelf = () => {
                     placeholder='Capacidad máxima'
                     required
                 />
-
-                <button type="submit">Agregar estantería</button>
+                <div className='divButton'>
+                    <button type="submit">Agregar estantería</button>
+                </div>
             </form>
         </div>
     );

@@ -7,10 +7,11 @@ function App() {
 
   return (
     <>
-      <h1>Sistema para bibliotecas - Psiware</h1>
-      <AddBook />
-      <AddShelf />
-
+      <h1>Sistema para bibliotecas - Psiware - Juan Mateo Viscovich</h1>
+      <div className='divBookShelf'>
+        <AddBook />
+        <AddShelf />
+      </div>
       <div className='divInfo'>
         <ShelfData />
       </div>

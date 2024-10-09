@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../styles/BookShelf.css'
 
 const ShelfSelector = () => {
   const [shelves, setShelves] = useState([]);
@@ -8,8 +9,8 @@ const ShelfSelector = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [sortedBooks, setSortedBooks] = useState([]);
-  const [genre, setGenre] = useState(''); 
-  const [genreBooks, setGenreBooks] = useState([]); 
+  const [genre, setGenre] = useState('');
+  const [genreBooks, setGenreBooks] = useState([]);
 
   // Cargar las estanterías desde el backend
   useEffect(() => {
@@ -30,8 +31,8 @@ const ShelfSelector = () => {
     setSelectedShelf(shelfId);
     setLoading(true);
     setFillData(null);
-    setGenreBooks([]); 
-    setSortedBooks([]); 
+    setGenreBooks([]);
+    setSortedBooks([]);
 
     try {
       // Obtener datos de la estantería
@@ -102,16 +103,16 @@ const ShelfSelector = () => {
       <div>
         <h3>Selecciona un género:</h3>
         <input
+          className="selectGenre"
           type="text"
           placeholder="Ingresa un género"
           value={genre}
           onChange={(e) => setGenre(e.target.value)}
         />
-        <button onClick={handleGenreSelect}>Buscar libros por género</button>
+        <button className="genreButton" onClick={handleGenreSelect}>Buscar libros por género</button>
       </div>
 
       <div>
-        <h3>Libros del género "{genre}":</h3>
         {genreBooks.length > 0 ? (
           <ul>
             {genreBooks.map((book) => (

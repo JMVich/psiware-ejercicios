@@ -67,13 +67,15 @@ exports.getShelfFillPercentage = async (req, res) => {
                 name: mostExpensiveBook.name,
                 author: mostExpensiveBook.author,
                 price: mostExpensiveBook.price.toFixed(2)
-            } : null // Si no hay libros, devolvemos null para el libro más caro
+            } : null 
         });
     } catch (error) {
         res.status(500).json({ message: 'Error al calcular el porcentaje de llenado, el valor total y el libro más caro', error });
     }
 };
 
+
+// Obtenemos los libros de manera ordenada
 exports.getBooksSorted = async (req, res) => {
     try {
         const shelfId = req.params.id;
@@ -84,7 +86,7 @@ exports.getBooksSorted = async (req, res) => {
         }
 
         // Buscamos los libros de la estantería y los ordenamos por título
-        const books = await Book.find({ shelfId }).sort({ title: 1 });  // Ordenamos alfabéticamente por el campo 'title'
+        const books = await Book.find({ shelfId }).sort({ name: 1 });  // Ordenamos alfabéticamente por el campo 'name'
 
         if (books.length === 0) {
             return res.status(404).json({ message: 'No hay libros en esta estantería' });
@@ -93,5 +95,30 @@ exports.getBooksSorted = async (req, res) => {
         res.status(200).json({ books });
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener los libros ordenados', error });
+    }
+};
+
+
+// Obtenemos los libros por género
+exports.getBooksByGenre = async (req, res) => {
+    try {
+        const shelfId = req.params.id;
+        const genre = req.params.genre;
+
+        // Verificamos si el ID es válido
+        if (!mongoose.Types.ObjectId.isValid(shelfId)) {
+            return res.status(400).json({ message: 'ID de estantería no válido' });
+        }
+
+        // Filtramos libros por estantería y género
+        const books = await Book.find({ shelfId, genre: genre });
+
+        if (books.length === 0) {
+            return res.status(404).json({ message: 'No se encontraron libros para este género en la estantería' });
+        }
+
+        res.status(200).json({ books });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener los libros por género', error });
     }
 };

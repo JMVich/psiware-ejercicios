@@ -58,7 +58,10 @@ const AddBook = () => {
                         ))}
                     </select>
 
-                    <button type="submit">Agregar libro</button>
+                    <div className='divButton'>
+                        <button type="submit">Agregar libro</button>
+                    </div>
+
                 </form>
             </div>
         </>

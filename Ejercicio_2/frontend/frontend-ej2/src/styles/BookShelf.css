@@ -1,15 +1,18 @@
 h2 {
     color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .mainDiv {
-    background-color: rgb(212, 119, 119);
+    background-color: #CEAB93;
     padding: 2em;
     margin: 4em;
     border-radius: 2em;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: min-content;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
 form input {
@@ -21,9 +24,49 @@ form input {
 form select {
     padding: 1em;
     border-radius: 1em;
+    margin: .5em;
 }
 
 form button {
     padding: 1em;
+    border-radius: 1em;
+}
+
+h3 {
+    margin-top: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.divButton {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+}
+
+button:hover {
+    background-color: rgb(81, 81, 81);
+    color: white;
+    transition: all .2s;
+}
+
+ul {
+    list-style-type: none;
+    padding-inline-start: 0;
+}
+
+.selectGenre {
+    padding: .4em;
+}
+
+.genreButton {
+    margin-left: .5em;
+    padding: .4em;
+    border-radius: .5em;
+}
+
+.pErrorSeleccionShelf {
+    color: #ffffff;
+    padding: .2em;
+    background: #ff0000;
     border-radius: 1em;
 }

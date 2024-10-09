@@ -8,6 +8,8 @@ const ShelfSelector = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [sortedBooks, setSortedBooks] = useState([]);
+  const [genre, setGenre] = useState(''); 
+  const [genreBooks, setGenreBooks] = useState([]); 
 
   // Cargar las estanterías desde el backend
   useEffect(() => {
@@ -27,22 +29,38 @@ const ShelfSelector = () => {
   const handleShelfSelect = async (shelfId) => {
     setSelectedShelf(shelfId);
     setLoading(true);
-    setFillData(null);  // Reseteamos los datos de llenado previos
-    setSortedBooks([]);  // Reseteamos la lista de libros
+    setFillData(null);
+    setGenreBooks([]); 
+    setSortedBooks([]); 
 
     try {
-      // Obtener los datos de llenado de la estantería
-      const fillResponse = await axios.get(`http://localhost:4000/api/shelves/${shelfId}/fill-percentage`);
-      setFillData(fillResponse.data);  // Guardamos los datos de llenado
+      // Obtener datos de la estantería
+      const response = await axios.get(`http://localhost:4000/api/shelves/${shelfId}/fill-percentage`);
+      setFillData(response.data); // Guardamos los datos de llenado
 
-      // Obtener los libros ordenados alfabéticamente
+      // Obtener todos los libros de la estantería
       const booksResponse = await axios.get(`http://localhost:4000/api/shelves/${shelfId}/books-sorted`);
-      setSortedBooks(booksResponse.data.books);  // Guardamos los libros en sortedBooks
+      // Ordenar libros alfabéticamente
+      const sortedBooks = booksResponse.data.books.sort((a, b) => a.name.localeCompare(b.name));
+      setSortedBooks(sortedBooks); // Guardar libros ordenados
+
     } catch (error) {
-      setError('Error al obtener los datos de la estantería o libros');
+      setError('Error al obtener datos de la estantería o libros');
     }
 
     setLoading(false);
+  };
+
+  // Función para obtener libros por género
+  const handleGenreSelect = async () => {
+    if (selectedShelf && genre) {
+      try {
+        const response = await axios.get(`http://localhost:4000/api/shelves/${selectedShelf}/genre/${genre}`);
+        setGenreBooks(response.data.books); // Asignar libros del género al estado
+      } catch (error) {
+        setError('Error al obtener libros por género');
+      }
+    }
   };
 
   return (
@@ -79,23 +97,45 @@ const ShelfSelector = () => {
             )}
           </div>
         )}
+      </div>
 
-        <div>
-          <h3>Libros ordenados alfabéticamente:</h3>
-          {sortedBooks.length > 0 ? (
-            <ul>
-              {sortedBooks.map((book) => (
-                <li key={book._id}>{book.name} - {book.author}</li>
-              ))}
-            </ul>
-          ) : (
-            <p>No hay libros para mostrar.</p>
-          )}
-        </div>
+      <div>
+        <h3>Selecciona un género:</h3>
+        <input
+          type="text"
+          placeholder="Ingresa un género"
+          value={genre}
+          onChange={(e) => setGenre(e.target.value)}
+        />
+        <button onClick={handleGenreSelect}>Buscar libros por género</button>
+      </div>
 
+      <div>
+        <h3>Libros del género "{genre}":</h3>
+        {genreBooks.length > 0 ? (
+          <ul>
+            {genreBooks.map((book) => (
+              <li key={book._id}>{book.name} - {book.author}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No hay libros para mostrar.</p>
+        )}
+      </div>
+
+      <div>
+        <h3>Libros ordenados alfabéticamente:</h3>
+        {sortedBooks.length > 0 ? (
+          <ul>
+            {sortedBooks.map((book) => (
+              <li key={book._id}>{book.name} - {book.author}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No hay libros para mostrar.</p>
+        )}
       </div>
     </>
-
   );
 };
 

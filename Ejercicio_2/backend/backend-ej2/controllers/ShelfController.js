@@ -74,6 +74,8 @@ exports.getShelfFillPercentage = async (req, res) => {
     }
 };
 
+
+// Obtenemos los libros de manera ordenada
 exports.getBooksSorted = async (req, res) => {
     try {
         const shelfId = req.params.id;
@@ -93,5 +95,30 @@ exports.getBooksSorted = async (req, res) => {
         res.status(200).json({ books });
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener los libros ordenados', error });
+    }
+};
+
+
+// Obtenemos los libros por género
+exports.getBooksByGenre = async (req, res) => {
+    try {
+        const shelfId = req.params.id;
+        const genre = req.params.genre;
+
+        // Verificamos si el ID es válido
+        if (!mongoose.Types.ObjectId.isValid(shelfId)) {
+            return res.status(400).json({ message: 'ID de estantería no válido' });
+        }
+
+        // Filtramos libros por estantería y género
+        const books = await Book.find({ shelfId, genre: genre });
+
+        if (books.length === 0) {
+            return res.status(404).json({ message: 'No se encontraron libros para este género en la estantería' });
+        }
+
+        res.status(200).json({ books });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener los libros por género', error });
     }
 };

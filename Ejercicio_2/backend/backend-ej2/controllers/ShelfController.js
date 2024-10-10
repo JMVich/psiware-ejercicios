@@ -26,8 +26,8 @@ exports.getShelves = async (req, res) => {
 };
 
 
-// Función para calcular el porcentaje de llenado, valor total de los libros y obtener el libro más caro
-exports.getShelfFillPercentage = async (req, res) => {
+// Función para calcular el porcentaje de la estantería, el valor total de los libros y obtener el libro más caro
+exports.getShelfFunctions = async (req, res) => {
     try {
         const shelfId = req.params.id;
 
@@ -70,7 +70,7 @@ exports.getShelfFillPercentage = async (req, res) => {
             } : null 
         });
     } catch (error) {
-        res.status(500).json({ message: 'Error al calcular el porcentaje de llenado, el valor total y el libro más caro', error });
+        res.status(500).json({ message: 'Error al calcular el porcentaje de la estantería, el valor total y el libro más caro', error });
     }
 };
 

@@ -36,7 +36,7 @@ const ShelfSelector = () => {
 
     try {
       // Obtener datos de la estantería
-      const response = await axios.get(`http://localhost:4000/api/shelves/${shelfId}/fill-percentage`);
+      const response = await axios.get(`http://localhost:4000/api/shelves/${shelfId}/shelf-functions`);
       setFillData(response.data); // Guardamos los datos de llenado
 
       // Obtener todos los libros de la estantería

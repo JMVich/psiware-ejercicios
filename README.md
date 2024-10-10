@@ -5,4 +5,6 @@
 ## La resolución del Ejercicio 1: Algoritmos, se encuentra en la siguiente ruta:
     Ejercicio_1 > src > App.jsx
 
-## Para la resolución del Ejercicio 2: Modelado, se dividió el frontend y el backend en dos carpetas diferentes.
+## Para la resolución del Ejercicio 2: Modelado, se dividió el backend y el frontend en dos carpetas diferentes.
+    npm start = Comando para ejecutar el backend.
+    npm run dev = Comando para ejecutar el frontend.

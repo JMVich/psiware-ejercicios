@@ -1,6 +1,4 @@
 
-import './App.css'
-
 function App() {
 
     let array = [1, 10, 6, 8, 15, 2];  // Creamos el array con los números

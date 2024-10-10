@@ -24,9 +24,8 @@ const AddShelf = () => {
 
         try {
             // Agregar estantería
-            const response = await axios.post('http://localhost:4000/api/shelves/add', newShelf);
+            await axios.post('http://localhost:4000/api/shelves/add', newShelf);
             alert('Estantería agregada con éxito');
-
             // Limpiar los campos después de enviar el formulario
             setId('');
             setLocation('');

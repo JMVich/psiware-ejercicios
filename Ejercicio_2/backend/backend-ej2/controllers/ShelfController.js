@@ -18,7 +18,7 @@ exports.addShelf = async (req, res) => {
 // Obtener las estanterías
 exports.getShelves = async (req, res) => {
     try {
-        const shelves = await Shelf.find();
+        const shelves = await Shelf.find();  // El método find() sin argumentos, devuelve todas las entanterías que encuentra en formato json().
         res.status(200).json(shelves);
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener las estanterías', error });
@@ -29,21 +29,21 @@ exports.getShelves = async (req, res) => {
 // Función para calcular el porcentaje de la estantería, el valor total de los libros y obtener el libro más caro
 exports.getShelfFunctions = async (req, res) => {
     try {
-        const shelfId = req.params.id;
+        const shelfId = req.params.id;  // Tomamos la ID de la RUTA
+
+        const shelf = await Shelf.findById(shelfId);  // Con la ID de la RUTA, buscamos una estantería que coincida
 
         // Verificamos si el ID es un ObjectId válido
         if (!mongoose.Types.ObjectId.isValid(shelfId)) {
             return res.status(400).json({ message: 'ID de estantería no válido' });
         }
 
-        const shelf = await Shelf.findById(shelfId);
-
+        // Verificamos si la estantería existe
         if (!shelf) {
             return res.status(404).json({ message: 'Estantería no encontrada' });
         }
 
-        // Recuperamos todos los libros asociados a esta estantería
-        const books = await Book.find({ shelfId });
+        const books = await Book.find({ shelfId });  // Recuperamos todos los libros asociados a esta estantería
 
         // Calculamos el número de libros y el porcentaje de llenado
         const bookCount = books.length;
@@ -86,7 +86,7 @@ exports.getBooksSorted = async (req, res) => {
         }
 
         // Buscamos los libros de la estantería y los ordenamos por título
-        const books = await Book.find({ shelfId }).sort({ name: 1 });  // Ordenamos alfabéticamente por el campo 'name'
+        const books = await Book.find({ shelfId }).sort({ name: 1 });  // Ordenamos alfabéticamente por el campo 'name'. 1 significa ascendente en MongoDB (en strings, de la A a la Z), y -1 descendente
 
         if (books.length === 0) {
             return res.status(404).json({ message: 'No hay libros en esta estantería' });
@@ -111,7 +111,7 @@ exports.getBooksByGenre = async (req, res) => {
         }
 
         // Filtramos libros por estantería y género
-        const books = await Book.find({ shelfId, genre: genre });
+        const books = await Book.find({ shelfId, genre });
 
         if (books.length === 0) {
             return res.status(404).json({ message: 'No se encontraron libros para este género en la estantería' });

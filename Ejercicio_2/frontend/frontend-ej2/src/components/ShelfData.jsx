@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { ShelfContext } from '../context/ShelfContext';
 import axios from 'axios';
 import '../styles/BookShelf.css'
 
-const ShelfSelector = () => {
-  const [shelves, setShelves] = useState([]);
-  const [selectedShelf, setSelectedShelf] = useState(null);
-  const [fillData, setFillData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [sortedBooks, setSortedBooks] = useState([]);
-  const [genre, setGenre] = useState('');
-  const [genreBooks, setGenreBooks] = useState([]);
+const ShelfData = () => {
+  const {
+    shelves, setShelves,
+    selectedShelf, setSelectedShelf,
+    sortedBooks, setSortedBooks,
+    setGenreBooks,
+    fillData, setFillData,
+    loading, setLoading,
+    error, setError,
+  } = useContext(ShelfContext);
 
   // Cargar las estanterías desde el backend
   useEffect(() => {
@@ -52,18 +54,6 @@ const ShelfSelector = () => {
     setLoading(false);
   };
 
-  // Función para obtener libros por género
-  const handleGenreSelect = async () => {
-    if (selectedShelf && genre) {
-      try {
-        const response = await axios.get(`http://localhost:4000/api/shelves/${selectedShelf}/genre/${genre}`);
-        setGenreBooks(response.data.books); // Asignar libros del género al estado
-      } catch (error) {
-        setError('Error al obtener libros por género');
-      }
-    }
-  };
-
   return (
     <>
       <div>
@@ -101,30 +91,6 @@ const ShelfSelector = () => {
       </div>
 
       <div>
-        <h3>Selecciona un género:</h3>
-        <input
-          className="selectGenre"
-          type="text"
-          placeholder="Ingresa un género"
-          value={genre}
-          onChange={(e) => setGenre(e.target.value)}
-        />
-        <button className="genreButton" onClick={handleGenreSelect}>Buscar libros por género</button>
-      </div>
-
-      <div>
-        {genreBooks.length > 0 ? (
-          <ul>
-            {genreBooks.map((book) => (
-              <li key={book._id}>{book.name} - {book.author}</li>
-            ))}
-          </ul>
-        ) : (
-          <p>No hay libros para mostrar.</p>
-        )}
-      </div>
-
-      <div>
         <h3>Libros ordenados alfabéticamente:</h3>
         {sortedBooks.length > 0 ? (
           <ul>
@@ -140,4 +106,4 @@ const ShelfSelector = () => {
   );
 };
 
-export default ShelfSelector;
+export default ShelfData;

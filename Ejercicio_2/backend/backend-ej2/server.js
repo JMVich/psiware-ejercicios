@@ -12,7 +12,7 @@ app.use(cors());  // Permitimos CORS en todas las rutas
 
 // Conexión a MongoDB usando la variable de entorno MONGO_URI
 const mongoURI = process.env.MONGO_URI;
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoURI)
     .then(() => console.log('Conexión exitosa a MongoDB'))
     .catch(err => console.error('Error al conectar a MongoDB:', err));
 
